@@ -61,9 +61,11 @@ define inoticoming::service(
 		$action,
 		$prefix        = undef,
 		$suffix        = undef,
-		$regexp        = undef
+		$regexp        = undef,
 		$initialsearch = false
 ) {
+	include inoticoming::base
+
 	$quoted_directory = shellquote($directory)
 	if $prefix {
 		$quoted_prefix = shellquote("--prefix", $prefix)
@@ -77,7 +79,7 @@ define inoticoming::service(
 	if $initialsearch {
 		$initialsearch_opt = "--initialsearch"
 	}
-	
+
 	daemontools::service { "inoticoming-${name}-${user}":
 		user    => $user,
 		command => "/usr/bin/inoticoming $initialsearch_opt --foreground ${quoted_directory} ${quoted_prefix} ${quoted_suffix} ${quoted_regexp} $action \\;",
