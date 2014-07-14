@@ -83,6 +83,7 @@ define inoticoming::service(
 	daemontools::service { "inoticoming-${name}":
 		user    => $user,
 		command => "/usr/bin/inoticoming $initialsearch_opt --foreground ${quoted_directory} ${quoted_prefix} ${quoted_suffix} ${quoted_regexp} $action \\;",
-		enable  => true
+		enable  => true,
+		require => Package["inoticoming"],
 	}
 }
