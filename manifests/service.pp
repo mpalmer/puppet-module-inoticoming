@@ -94,11 +94,11 @@ define inoticoming::service(
 		$initialsearch = false
 ) {
 	include inoticoming::base
-	
+
 	if $actions and $action {
 		fail "Only one of `actions` and `action` may be specified."
 	}
-	
+
 	if !$actions and !$action {
 		fail "Exactly one of `actions` and `action` must be specified."
 	}
@@ -113,7 +113,7 @@ define inoticoming::service(
 		if $regexp {
 			$quoted_regexp = shellquote("--regexp", $regexp)
 		}
-		
+
 		$inoticoming_service_command = "${quoted_prefix} ${quoted_suffix} ${quoted_regexp} $action \\;"
 	} else {
 		$inoticoming_service_command = inoticoming_command_from_actions($actions)
